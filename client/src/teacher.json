@@ -1,0 +1,63 @@
+{
+    "name": "陈武" ,
+    "age": "44",
+    "position": "教授",
+    "courses": [
+        {
+            "index": 1,
+            "course": "软件工程导论",
+            "teacher": "陈武",
+            "deadline": "2019-08-13",
+            "book_command": "软件工程导论",
+            "book_price": "30",
+            "student_below": [
+                "张三","李四","是否","阿三","左右","东西","传粉丝","李四","李四","李四"
+            ]
+        },
+        {
+            "index": 2,
+            "course": "计算机组成原理",
+            "teacher": "陈武",
+            "deadline": "2019-08-13",
+            "book_command": "软件工程导论",
+            "book_price": "30",
+            "student_below": [
+                "张三","李四","是否","阿三","左右","东西","传粉丝","李四","李四","李四"
+            ]
+        },
+        {
+            "index": 3,
+            "course": "多媒体技术",
+            "teacher": "陈武",
+            "deadline": "2019-08-13",
+            "book_command": "软件工程导论",
+            "book_price": "30",
+            "student_below": [
+                "张三","李四","是否","阿三","左右","东西","传粉丝","李四","李四","李四"
+            ]
+        },
+        {
+            "index": 4,
+            "course": "java开发",
+            "teacher": "陈武",
+            "deadline": "2019-08-13",
+            "book_command": "软件工程导论",
+            "book_price": "30",
+            "student_below": [
+                "张三","李四","是否","阿三","左右","东西","传粉丝","李四","李四","李四"
+            ]
+        },
+        {
+            "index": 5,
+            "course": "c语言开发",
+            "teacher": "陈武",
+            "deadline": "2019-08-13",
+            "book_command": "软件工程导论",
+            "book_price": "30",
+            "student_below": [
+                "张三","李四","是否","阿三","左右","东西","传粉丝","李四","李四","李四"
+            ]
+        }
+        
+    ]
+}
