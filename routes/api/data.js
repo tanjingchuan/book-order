@@ -234,6 +234,51 @@ router.get(
   }
 );
 
+// @route  GET api/data
+// @desc   获取教师对应课程信息
+// @access Private
+
+router.get(
+  '/tea_courses',
+  passport.authenticate('jwt', { session: false }),
+  (req, res) => {
+    // 获取教师姓名
+    var teaName = req.query.teaName;
+    Courses.find({teacher_name: teaName})
+      .then(courses => {
+        let teaCourses = []
+        if (!courses) {
+          return res.status(404).json('没有任何内容');
+        }
+        (async () => {
+          for (let course of courses) {
+            let courseMes = {}
+            let course_students = []
+            courseMes.course = course.name
+            courseMes.teacher = course.teacher_name
+            courseMes.deadline = '2020-04-05'
+            courseMes.book_command = course.book_command
+            const recommend_book = await Books.find({name: course.book_command})
+            courseMes.book_price = recommend_book[0].price
+
+            const students = await Students.find()
+            students.forEach(stu => {
+              stu.courses.forEach(course => {
+                if (course.name === courseMes.course) {
+                  course_students.push(stu)
+                }
+              })
+            })
+            courseMes.students = course_students
+            teaCourses.push(courseMes)
+          }
+          res.json(teaCourses);
+        })()
+      })
+      .catch(err => res.status(404).json(err));
+  }
+);
+
 // @route  POST api/data
 // @desc   编辑单个学生数据
 // @access Private

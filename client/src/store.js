@@ -1,16 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import axios from './http.js'
 
 Vue.use(Vuex)
 
 const types = {
   SET_IS_AUTNENTIATED: 'SET_IS_AUTNENTIATED', // 是否认证通过
-  SET_USER: 'SET_USER' // 用户信息
+  SET_USER: 'SET_USER', // 用户信息
+  SET_COURSE_DATA: 'SET_COURSE_DATA' // 教师数据
 }
 
 const state = { // 需要维护的状态
   isAutnenticated: false,  // 是否认证
-  user: {}   // 存储用户信息
+  user: {},   // 存储用户信息
+  courseData: [], // 教师课程数据
 }
 
 const getters = {
@@ -30,6 +33,9 @@ const mutations = {
       state.user = user
     else
       state.user = {}
+  },
+  [types.SET_COURSE_DATA] (state, courseData) {
+    state.courseData = courseData
   }
 }
 
@@ -43,6 +49,16 @@ const actions = {
   clearCurrentState: ({ commit }) => {
     commit(types.SET_IS_AUTNENTIATED, false)
     commit(types.SET_USER, null)
+  },
+  // 教师课程信息初始化
+  async initTeaCourses ({commit}, teaName) {
+    const res = await axios.get("api/data/tea_courses", {
+      params: {
+        teaName
+      }
+    })
+    commit(types.SET_COURSE_DATA, res.data)
+    return Promise.resolve(res.data)
   }
 }
 

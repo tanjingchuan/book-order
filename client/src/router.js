@@ -17,8 +17,8 @@ const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '*', name: '/404', component: Nofind },
-    { path: '/', redirect: '/ ' },
+    { path: '*', name: 'Overview', component: Overview },
+    { path: '/404', name: '404 ', component: Nofind},
     { path: '/register', name: 'register', component: Register },
     { path: '/login', name: 'login', component: Login },
     {

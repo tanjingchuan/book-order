@@ -9,25 +9,25 @@
       <el-row class="top_content" type="flex" justify="space-around" align="middle">
         <el-col :span="6" class="module_data data_bg0">
           <div class="show_data">
-            <h5 class="data_num">{{book_order.length}}</h5>
+            <h5 class="data_num">{{allCourse.length}}</h5>
             <span class="data_name">总课程</span>
           </div>
         </el-col>
         <el-col :span="6" class="module_data data_bg1">
           <div class="show_data">
-            <h5 class="data_num">{{book_order.length}}</h5>
+            <h5 class="data_num">{{allCourse.length}}</h5>
             <span class="data_name">需教材课程</span>
           </div>
         </el-col>
         <el-col :span="6" class="module_data data_bg2">
           <div class="show_data">
-            <h5 class="data_num">{{book_order.length-book_nonorder}}</h5>
+            <h5 class="data_num">{{allCourse.length-book_nonorder.length}}</h5>
             <span class="data_name">已订购教材课程</span>
           </div>
         </el-col>
         <el-col :span="6" class="module_data data_bg3">
           <div class="show_data">
-            <h5 class="data_num">{{book_nonorder}}</h5>
+            <h5 class="data_num">{{book_nonorder.length}}</h5>
             <span class="data_name">未订购教材课程</span>
           </div>
         </el-col>
@@ -41,7 +41,7 @@
     </div>
     <div class="bottom_left">
       <el-table
-        :data="book_order"
+        :data="book_nonorder"
         style="width: 100%;"
         stripe
         height="300"
@@ -71,14 +71,10 @@ export default {
   name: "overview",
   data() {
     return {
-      // 订单信息
-      book_order: [],
-
+      // 未订购教材信息
+      book_nonorder: [],
       // 教材课程数据
-      allCourse: 0,
-      allCourse_order: 0,
-      allCourse_nonorder: 0,
-
+      allCourse: [],
       data_bg: ["background: linear-gradient(left top ,#6676ff,#35bafd);"]
     };
   },
@@ -86,15 +82,6 @@ export default {
     // 前往订购触发函数
     onBuying(row){
       this.$router.push({path: "/bookorder?name=" + row.name});
-    }
-  },
-  computed: {
-    // 未订购教材
-    book_nonorder: function() {
-      var books_nonorder = this.book_order.filter(item => {
-        return item.ifOrder == false;
-      });
-      return books_nonorder.length;
     }
   },
   // created
@@ -108,7 +95,7 @@ export default {
     // vuex获取学号
     const schoolNum = this.$store.getters.user.schoolNum;
     // 向后台数据库发出请求
-    this.book_order = this.$axios
+    this.$axios
       .get("api/data/single_stuData", {
         params: {
           schoolNum: schoolNum
@@ -116,10 +103,11 @@ export default {
       })
       .then(data => {
         console.log("已经成功获取到教材信息数据:");
-        this.book_order = data.data[0].courses.filter(item => {
+        this.allCourse =  data.data[0].courses
+        this.book_nonorder = data.data[0].courses.filter(item => {
           return item.ifOrder == false;
         });
-        console.log(this.book_order);
+        console.log(this.book_nonorder);
       });
   }
 };
