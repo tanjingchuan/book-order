@@ -91,7 +91,7 @@ export default{
           routeName = 'datainc'
           break;
       }
-      if (this.role === 'student' && (routeName === 'teacherview' || routeName === 'bookevaluate')) {
+      if (this.role === 'student' && (routeName === 'teacherview')) {
         this.$alert('抱歉，您无权限查看此页面', '权限提示');
         return
       }

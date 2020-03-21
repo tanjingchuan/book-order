@@ -293,20 +293,8 @@ router.post(
     var course = {};
 
     // 改变订单状态
-    // if(req.query.ifOrder) ifOrder = req.query.ifOrder;
     if(req.body.course) course = req.body.course;
 
-    // Students.find({stu_id: schoolNum})
-    // .then(student => {
-    //   console.log(student);
-    //   student.courses.forEach(data => {
-    //     if(data.name == course){
-    //       data.ifOrder = true;
-    //     }
-    //   })
-    //   student.save();
-    // })
-    
     // 先移除掉对应课程
     Students.update({stu_id: schoolNum},{$pull: {courses: {name: course.name}}},function(err,raw){
       if(err) console.log(err);
@@ -315,12 +303,6 @@ router.post(
         if(err) console.log(err);
       })
     })
-
-
-    // Students.findOneAndUpdate({stu_id: schoolNum},{$set: {courses: course}},function(err,raw){
-    //   console.log(course);
-    //   if(err) console.log(err);
-    // })
     res.json("succeess");
   }
 );
@@ -402,9 +384,14 @@ router.post("/addBooks",passport.authenticate("jwt",{session: false}),(req,res) 
     if(req.body.price) booksField.price = req.body.price;
 
     new Books(booksField).save().then(book => {
-      console.log(book);
       res.json(book); 
     });
+  })
+})
+
+router.get('/getBooks', passport.authenticate("jwt",{session: false}), (req, res) => {
+  Books.find().then(data => {
+    res.json(data)
   })
 })
 
@@ -414,7 +401,6 @@ router.post("/addBooks",passport.authenticate("jwt",{session: false}),(req,res) 
 router.delete("/delbook",passport.authenticate("jwt",{session: false}),(req,res) => {
   Books.findOneAndRemove({name:req.body.name})
   .then(books => {
-    console.log(books);
     books.save().then(book => res.json(book));
   })
   .catch(err => {
@@ -422,6 +408,30 @@ router.delete("/delbook",passport.authenticate("jwt",{session: false}),(req,res)
     Books.find().then(data => console.log(data));
   })
   
+})
+
+// @route get api/data/
+// @desc 新增评价
+// @access Private
+router.post('/incEvaluate', passport.authenticate("jwt",{session: false}), (req, res) => {
+  const params = {
+    userName: req.body.userName,
+    evaValue: req.body.evaValue,
+    evaContent: req.body.evaContent
+  }
+  Books.findOneAndUpdate({ name: req.body.bookName },
+    {
+      $push: {
+        evaluate: params
+      }
+    },
+    {
+      new: true
+    }
+  ).then(data => {
+    console.log('更新后的数据', data)
+    res.json(data)
+  })
 })
 
 // @route get api/data/

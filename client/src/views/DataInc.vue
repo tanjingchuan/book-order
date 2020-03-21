@@ -430,7 +430,7 @@ export default {
       .then(res => {
         this.stuData = res.data.map(item => {
           var tempCourses = [];
-          item.courses.forEach((item,index) => {
+          item.courses.forEach((item, index) => {
             tempCourses.push(item.name);
           })
           item.courses = tempCourses.join(",");
@@ -441,7 +441,6 @@ export default {
 
     // 增加课程数据
     add_coudata(){
-
         // 向后台数据库发出请求
         this.$axios.post("/api/data/addCourse",this.cou_form)
         .then(res => {
@@ -486,6 +485,10 @@ export default {
     // 增加指定教材数据
     add_bookdata(){
       // 向后台数据库发出请求
+      if (Object.keys(this.books_form).length === 0) {
+        alert('当前所填数据不能为空')
+        return
+      }
       this.$axios.post("/api/data/addBooks",this.books_form)
       .then(res => {
         // 存储数据成功

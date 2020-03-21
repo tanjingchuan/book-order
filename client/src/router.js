@@ -6,6 +6,7 @@ import Nofind from './views/404'
 import Login from './views/Login'
 import BookOrder from './views/BookOrder'
 import BookOrderAch from './views/BookOrderAch'
+import BookEvaluate from './views/BookEvaluate'
 import Overview from './views/Overview'
 import TeacherView from "./views/TeacherView"
 import ExpendList from "./views/ExpendList"
@@ -30,6 +31,7 @@ const router = new Router({
         { path: '/overview', name: 'Overview', component: Overview },
         { path: '/bookorder', name: 'bookorder', component: BookOrder },
         { path: '/bookorderach', name: 'bookorderach', component: BookOrderAch },
+        { path: '/bookevaluate', name: 'bookevaluate', component: BookEvaluate },
         { path: '/teacherview', name: 'teacherview', component: TeacherView },
         { path: '/expendlist', name: 'expendlist', component: ExpendList },
         { path: '/datainc', name: 'datainc', component: DataInc }

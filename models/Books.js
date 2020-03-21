@@ -18,6 +18,10 @@ const BooksSchema = new Schema({
   price:{
     type: Number,
     required: true
+  },
+  evaluate: {
+    type: Array,
+    default: []
   }
 });
 
