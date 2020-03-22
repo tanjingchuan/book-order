@@ -91,6 +91,7 @@ export default {
     if(role !== "student"){
       // 页面跳转
       this.$router.push("/teacherview");
+      return
     }
     // vuex获取学号
     const schoolNum = this.$store.getters.user.schoolNum;

@@ -3,6 +3,7 @@
         <div class="table_region">
             <h2 class="title">教材费用明细：</h2>
             <el-table
+                v-if="book_mes.length > 0"
                 class="tableContent"
                 :data="book_mes"
                 style="width: 94%"
@@ -32,8 +33,7 @@
                 </el-table-column>
                 <el-table-column
                 prop="price"
-                label="单价"
-                width="80">
+                label="单价">
                 </el-table-column>
             </el-table>
         </div>

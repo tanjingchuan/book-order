@@ -3,6 +3,7 @@
     <div class="showBook">
       <span class="title">未订购教材如下：</span>
       <el-table
+        v-if="book_order.length > 0"
         :data="book_order"
         style="width: 100%;"
         stripe

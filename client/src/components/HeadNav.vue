@@ -36,6 +36,7 @@
                     switch(command){
                         case "logout":
                             // 清空缓存
+                            console.log("你好", command)
                             localStorage.removeItem("eletoken");
                             // 清除store中状态
                             this.$store.dispatch("clearCurrentState");

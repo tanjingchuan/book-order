@@ -60,8 +60,8 @@ router.beforeEach((to, from, next) => {
   }
 
   // 权限控制
-  if(to.path == "/overview"){
-    console.log(role);
+  console.log(to.path);
+  if(to.path === "/overview"){
     if(role == "teacher"){
       next("/teacherview");
     }else{

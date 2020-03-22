@@ -120,8 +120,10 @@ export default {
     }
     // vuex获取课程信息
     const teaName = this.$store.getters.user.username;
+    console.log('教师名称', teaName)
     this.initTeaCourses(teaName).then(courseData => {
         this.tableData = courseData;
+        console.log('课程数据', this.tableData)
         this.currentCourse = courseData[0].course;
     })
   }
